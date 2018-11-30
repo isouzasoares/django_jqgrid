@@ -1,0 +1,72 @@
+{% load static %}
+
+    <table id="my_grid"></table>
+    <div id="my_grid_nav"></div>
+
+    <link rel="stylesheet" href="{% static 'css/ui.jqgrid-bootstrap.css' %}">
+    <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery.jqGrid.min.js' %}"></script>
+    <script src="{% static 'js/i18n/grid.locale-pt-br.js' %}"></script>
+
+
+    <script>
+
+    // app e tabela do django separados por . minusculo
+    var controller = 'tabelas.user';
+
+    // parametros adicionais enviados no post ou get
+    var postdata = {'controller': controller, 'ignoreCase': true};
+
+    // url para que seja efetuado o get ou post
+    var url = "{% url 'django_jqgrid' %}";
+
+    // titulo do cabeçalho da tabela
+    var caption = "Teste"
+
+    // fields que vão aparecer na tabela e que vao buscar do django, usar modelo queryset do django
+    // na key name
+    var fields = [{"name": "first_name", "index": "nome", "label": "nome"},
+                  {"name": "last_name", "index": "idade", "label": "idade"}]
+
+    var data = {
+            'url': url,
+            'postData': postdata,
+            'caption': caption,
+            'colModel': fields,
+
+            // itens fixos
+            'datatype': 'json',
+            'autowidth': true,
+            'forcefit': true,
+            'shrinkToFit': true,
+            'jsonReader': {'repeatitems': false},
+            'rowNum': 10,
+            'rowList': [10, 25, 50, 100],
+            'sortname': 'id',
+            'viewrecords': true,
+            'sortorder': "asc",
+            'pager': "#my_grid_nav",
+            'altRows': true,
+            'gridview': true,
+            'height': 'auto',
+
+
+            // 'multikey': 'ctrlKey',
+            // 'multiboxonly': true,
+            // 'multiselect': true,
+            // 'toolbar': [false, 'bottom'],
+            // 'rownumbers': false,
+        }
+
+        $("#my_grid")
+                .jqGrid(data)
+                .navGrid('#my_grid_nav',
+                        {add: false, edit: false, del: false, view: true},
+                        {}, // edit options
+                        {}, // add options
+                        {}, // del options
+                        {multipleSearch: true, closeOnEscape: true}, // search options
+                        {jqModal: false, closeOnEscape: true} // view options
+                )
+        jQuery("#my_grid").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: "cn" });
+    </script>

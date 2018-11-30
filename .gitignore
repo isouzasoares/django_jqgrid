@@ -1,0 +1,9 @@
+GS GEOSOL
+### 30/08/2018
+### Description:
+###  - Exclude temporary files from git repository
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyc
