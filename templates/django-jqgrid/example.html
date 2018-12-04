@@ -28,6 +28,15 @@
     var fields = [{"name": "first_name", "index": "nome", "label": "nome"},
                   {"name": "last_name", "index": "idade", "label": "idade"}]
 
+    // adiciona field name para que seja feito o queryset no django
+    var fields_name = [];
+    if (fields.length){
+      for (i in fields){
+        fields_name.push(fields[i]["name"]);
+      }
+      postdata["fields"] = fields_name;
+    }
+
     var data = {
             'url': url,
             'postData': postdata,

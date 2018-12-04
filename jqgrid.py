@@ -263,7 +263,7 @@ class JqGrid(TemplateView):
             return options.get_field(field_name)
 
     def get_field_names(self):
-        fields = self.fields
+        fields = self.fields if self.fields else self.request.GET.getlist("fields[]", [])
         if not fields:
             fields = [f.name for f in self.get_model()._meta.local_fields]
         return fields
