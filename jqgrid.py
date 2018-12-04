@@ -84,7 +84,7 @@ class JqGrid(TemplateView):
         if model:
             try:
                 app, model = model.split(".")
-                self.model = apps.get_model(app, model.capitalize())
+                self.model = apps.get_model(app, model)
             except ValueError:
                 raise ImproperlyConfigured("Controller format is app.model")
 
