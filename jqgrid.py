@@ -172,7 +172,8 @@ class JqGrid(TemplateView):
         for rule in _filters['rules']:
             op, field, data = rule['op'], rule['field'], rule['data']
             # FIXME: Restrict what lookups performed against RelatedFields
-            field_class = self.get_model()._meta.get_field(field)
+            field_rel = field.split("__")
+            field_class = self.get_model()._meta.get_field(field_rel[0])
             if isinstance(field_class, RelatedField):
                 op = 'eq'
             filter_fmt, exclude = filter_map[op]
